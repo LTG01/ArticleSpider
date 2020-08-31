@@ -1,0 +1,38 @@
+
+import requests
+
+
+
+url = 'https://www.lagou.com/jobs/positionAjax.json'
+
+headers={
+
+    'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+    # 'cookie':'user_trace_token=20200805184658-61d5fce9-4ffb-4563-b95d-fce24638e792; _ga=GA1.2.767445327.1596624419; LGUID=20200805184659-9667f0ad-94ef-4b5e-b817-94496efd2598; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22173be3b61cc5ea-0f554d119b6f8c-7a1437-1024000-173be3b61cd291%22%2C%22%24device_id%22%3A%22173be3b61cc5ea-0f554d119b6f8c-7a1437-1024000-173be3b61cd291%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_referrer_host%22%3A%22%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%7D%7D; LG_HAS_LOGIN=1; RECOMMEND_TIP=true; gate_login_token=8f75611ffd9d3063a84fd24f8b9e72ad2c9cb8e7b0ed2f25; LG_LOGIN_USER_ID=18773f582bb6e6bd389f4eba6d2092dd4fe9664ef03c0f29; showExpriedIndex=1; showExpriedCompanyHome=1; showExpriedMyPublish=1; hasDeliver=0; privacyPolicyPopup=false; index_location_city=%E6%9D%AD%E5%B7%9E; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1597661799,1597718267,1597832866,1598352909; _gat=1; LGSID=20200825185508-e68a53cb-5d64-4d5f-ad7a-5aa0bb771bfb; PRE_UTM=m_cf_cpt_baidu_pcbt; PRE_HOST=www.baidu.com; PRE_SITE=https%3A%2F%2Fwww.baidu.com%2Fother.php%3Fsc.Ks0000jnIFWDNkinBXN4cMFb3Ofm6I6lKIxmXiE5mYEWvrRaEDjq14v-7EhvUDRShr706Uw-aSiSoTMSr9aqSDjtEyflw-pFD428IgfYbvf7fj4lTmnbBbx4JxevxTEj4GM4YUtMuWIsOoh0TfLXKkdzNNpywzJM4W7jr670DqH7OwtWk95umGdLNMb%5FZIH627fN-BQ2F-0z-C5o%5FlNFBA9nluPA.7Y%5FNR2Ar5Od663rj6tJQrGvKD77h24SU5WudF6ksswGuh9J4qt7jHzk8sHfGmYt%5FrE-9kYryqM764TTPqKi%5FnYQZHuukL0.TLFWgv-b5HDkrfK1ThPGujYknHb0THY0IAYqs2v4VnL30ZN1ugFxIZ-suHYs0A7bgLw4TARqnsKLULFb5TaV8UHPS0KzmLmqnfKdThkxpyfqnHRznjfYP1fzr0KVINqGujYkn104PH6YnfKVgv-b5HDsP1czP1T30AdYTAkxpyfqnHDdn1f0TZuxpyfqn0KGuAnqHbG2RsKWThnqn1TznHn%26ck%3D1357.3.115.292.155.270.165.190%26dt%3D1598352905%26wd%3D%25E6%258B%2589%25E5%258B%25BE%25E7%25BD%2591%26tpl%3Dtpl%5F11534%5F22836%5F18980%26l%3D1520447428%26us%3DlinkName%253D%2525E6%2525A0%252587%2525E5%252587%252586%2525E5%2525A4%2525B4%2525E9%252583%2525A8-%2525E4%2525B8%2525BB%2525E6%2525A0%252587%2525E9%2525A2%252598%2526linkText%253D%2525E3%252580%252590%2525E6%25258B%252589%2525E5%25258B%2525BE%2525E6%25258B%25259B%2525E8%252581%252598%2525E3%252580%252591%2525E5%2525AE%252598%2525E6%252596%2525B9%2525E7%2525BD%252591%2525E7%2525AB%252599%252520-%252520%2525E4%2525BA%252592%2525E8%252581%252594%2525E7%2525BD%252591%2525E9%2525AB%252598%2525E8%252596%2525AA%2525E5%2525A5%2525BD%2525E5%2525B7%2525A5%2525E4%2525BD%25259C%2525EF%2525BC%25258C%2525E4%2525B8%25258A%2525E6%25258B%252589%2525E5%25258B%2525BE%21%2526linkType%253D; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Flanding-page%2Fpc%2Fsearch.html%3Futm%5Fsource%3Dm%5Fcf%5Fcpt%5Fbaidu%5Fpcbt; _putrc=9A1C4F1314309E24; JSESSIONID=ABAAAECABIEACCA885B826D58D68E51431AC1214055AF57; login=true; unick=%E6%9D%8E%E5%A0%82%E6%9B%B4; WEBTJ-ID=20200825185523-17425421c339d1-00bbcc5e1e1468-7a1437-1024000-17425421c344e0; _gid=GA1.2.1440608592.1598352924; TG-TRACK-CODE=index_search; X_HTTP_TOKEN=53bf1b7c60fd08a24392538951431d51fdf37def95; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1598352935; LGRID=20200825185534-a44e3b7f-e613-486f-a04a-eafd654f72d5; SEARCH_ID=c322b803cfbf4478882797c4956add9a'
+
+}
+data = {
+    'city':'杭州',
+    'needAddtionalResult': 'false',
+    'pn': 1,
+    'first': 'true',
+    'kd': 'python'
+
+}
+
+
+url = 'https://www.lagou.com/jobs/list_python?labelWords=&fromSearch=true&suginput='
+
+s= requests.Session()
+
+res = s.get(url, headers=headers, timeout=3)
+cookie = res.cookies
+print(cookie)
+
+
+
+url = 'https://www.lagou.com/jobs/positionAjax.json'
+
+res = requests.post(url=url,data=data,cookies=cookie,headers=headers)
+print(res.status_code)
+print(res.text)
